@@ -1,0 +1,66 @@
+---
+title: "Resume"
+---
+
+<div class="resume-page">
+
+Hanli (Harrison) Wei · [hw3206@cumc.columbia.edu](mailto:hw3206@cumc.columbia.edu) · [GitHub](https://github.com/hw3206)
+
+## Education
+
+### Columbia University
+
+**MS in Biostatistics** · New York, NY  
+September 2026–expected June 2028
+
+### University of California, Davis
+
+**Bachelor's degree in Applied Statistics** · Davis, CA  
+2021–2025  
+GPA: 3.4/4.0 · Major GPA: 3.53/4.0
+
+## Internship experience
+
+### Data Analysis Intern
+
+**JiuSi (9th) Technology** · Sales and Marketing Department · Shanghai  
+September–December 2025
+
+- Collected, organized and processed financial and market data for business analysis.
+- Used Excel and other tools to examine market trends and customer metrics.
+- Helped prepare reports, summarize findings and improve the team's data organization.
+
+## Selected project
+
+### Global Sales Data Analysis and Cost Optimization
+
+September–December 2022
+
+- Analyzed more than 50,000 orders from 2014–2021 using Excel, including regional and product-level net profits in Nigeria and Turkey.
+- Compared results to identify sources of financial losses and suggest changes to costs and pricing.
+- Contributed analytical work to recommendations associated with an estimated 4% reduction in unit manufacturing costs.
+
+## Publication
+
+“Analysis of Measures for Enhancing Company Efficiency from the Perspective of Economic Statistics.”  
+*Consume Guide*, Issue 49, 2024. ISSN 1672-5719; CN 11-5052/Z.
+
+## Campus leadership
+
+### Founder, UC Davis Cultural Fitness Club
+
+2022–2025
+
+- Founded a student organization that grew to more than 150 members.
+- Organized fitness activities that encouraged social interaction and cross-cultural exchange.
+- Provided swimming instruction, drawing on a competitive background and National Level-3 Athlete certification in China.
+
+## Skills and interests
+
+**Tools:** R, Python, Excel and Microsoft Office.  
+**Languages:** Chinese (native) and English (fluent).  
+**Interests:** Fitness, swimming and traveling.
+
+[Explore my weather dashboard →](dashboard.html)
+
+</div>

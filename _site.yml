@@ -1,0 +1,26 @@
+name: "hanli-wei"
+output_dir: "."
+navbar:
+  title: "Hanli (Harrison) Wei"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Resume"
+      href: resume.html
+    - text: "Weather dashboard"
+      href: dashboard.html
+  right:
+    - text: "GitHub"
+      icon: fa-github
+      href: https://github.com/hw3206
+    - text: "Email"
+      icon: fa-envelope
+      href: mailto:hw3206@cumc.columbia.edu
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    css: styles.css
+    includes:
+      after_body: footer.html
+    self_contained: false

@@ -1,0 +1,41 @@
+---
+title: "Hanli (Harrison) Wei"
+---
+
+<div class="eyebrow">BIOSTATISTICS · COLUMBIA UNIVERSITY</div>
+
+<div class="intro-grid">
+<div>
+
+<p class="lead-copy">I'm an MS student in Biostatistics at Columbia University. Before Columbia, I studied Applied Statistics at the University of California, Davis.</p>
+
+I work with R, Python and Excel to organize data, explore patterns and explain results. My experience includes sales and market analysis, a cost optimization project, and a student fitness organization at UC Davis.
+
+I started at Columbia in September 2026 and expect to graduate in June 2028. This site brings together my background and a small collection of data work.
+
+<div class="link-row">
+<a class="button-link" href="resume.html">View my resume</a>
+<a href="mailto:hw3206@cumc.columbia.edu">Get in touch</a>
+</div>
+
+</div>
+<div class="intro-side">
+
+## Explore the weather dashboard
+
+How do temperatures and rainfall change through the year in Central Park? I built an interactive view of five years of daily NOAA records for Data Science I.
+
+[Open the dashboard →](dashboard.html)
+
+<p class="muted">Four chart types. Daily observations from 2006–2010. Built with R, Plotly and flexdashboard.</p>
+
+</div>
+</div>
+
+<div class="section-rule"></div>
+
+## Beyond coursework
+
+I enjoy swimming, fitness and traveling. At UC Davis, I founded the Cultural Fitness Club, which grew to more than 150 members and combined group activities with cross-cultural exchange.
+
+[Academic and professional experience](resume.html) · [GitHub](https://github.com/hw3206)

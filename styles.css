@@ -1,0 +1,33 @@
+:root { --ink:#203447; --muted:#5c6c78; --accent:#126b77; --paper:#fbfaf7; --line:#dce3e4; }
+body { background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; font-size:17px; line-height:1.75; }
+.main-container { max-width:1060px; padding:48px 36px 24px; }
+.navbar-default { background:#203447; border:0; }
+.navbar-default .navbar-brand { font-size:17px; font-weight:600; letter-spacing:.1px; }
+.navbar-default .navbar-nav>li>a { font-size:14px; }
+.navbar-default .navbar-nav>.active>a { background:#126b77; }
+h1,h2,h3 { color:var(--ink); font-weight:500; line-height:1.25; }
+h1 { font-family:Georgia,"Times New Roman",serif; font-size:45px; margin:0 0 28px; }
+h2 { font-family:Georgia,"Times New Roman",serif; font-size:29px; margin-top:38px; }
+h3 { font-size:20px; font-weight:600; margin-top:26px; }
+a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+a:hover,a:focus { color:#0a4952; }
+a:focus-visible { outline:3px solid #b77b36; outline-offset:4px; }
+.navbar a { text-decoration:none; }
+.eyebrow { color:var(--accent); font-size:13px; font-weight:700; letter-spacing:1.5px; margin-bottom:16px; }
+.intro-grid { display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:start; margin-top:8px; }
+.lead-copy { font-size:20px; line-height:1.65; }
+.intro-side { border-left:2px solid var(--line); padding-left:30px; margin-top:6px; }
+.intro-side h2 { margin-top:0; font-size:25px; }
+.section-rule { border-top:1px solid var(--line); margin:44px 0 30px; }
+.muted, .date-note { color:var(--muted); }
+.date-note { font-size:15px; margin-top:-7px; }
+.link-row { display:flex; flex-wrap:wrap; gap:12px 28px; margin-top:24px; }
+.button-link { display:inline-block; background:var(--accent); color:white; padding:10px 20px; text-decoration:none; font-size:16px; }
+.button-link:hover,.button-link:focus { color:white; background:#0a4952; }
+.resume-page { max-width:850px; }
+.resume-page ul { padding-left:23px; }
+.resume-page li { margin-bottom:6px; }
+.resume-page h2 { border-bottom:1px solid var(--line); padding-bottom:10px; }
+.site-footer { max-width:988px; margin:64px auto 0; border-top:1px solid var(--line); padding:22px 0 12px; color:var(--muted); font-size:13px; }
+@media(max-width:900px) { .navbar-default .navbar-brand { font-size:15px; } .navbar-default .navbar-nav>li>a { font-size:13px; padding-left:10px; padding-right:10px; } }
+@media(max-width:767px) { .main-container { padding:30px 22px 16px; } h1 { font-size:35px; } .intro-grid { display:block; } .intro-side { margin-top:36px; padding-left:20px; } .site-footer { margin-top:40px; } .lead-copy { font-size:18px; } }
