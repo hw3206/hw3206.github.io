@@ -9,9 +9,9 @@ title: "Hanli (Harrison) Wei"
 
 <p class="lead-copy">I'm an MS student in Biostatistics at Columbia University. Before Columbia, I studied Applied Statistics at the University of California, Davis.</p>
 
-I work with R, Python and Excel to organize data, explore patterns and explain results. My experience includes sales and market analysis, a cost optimization project, and a student fitness organization at UC Davis.
+My previous work includes a data analysis internship in Shanghai and an Excel project on sales and manufacturing costs. I also use R and Python.
 
-I started at Columbia in September 2026 and expect to graduate in June 2028. This site brings together my background and a small collection of data work.
+I started at Columbia in September 2026 and expect to graduate in June 2028. You can find my resume and a Data Science I dashboard here.
 
 <div class="link-row">
 <a class="button-link" href="resume.html">View my resume</a>
@@ -27,7 +27,7 @@ How do temperatures and precipitation change through the year in Central Park? I
 
 [Open the dashboard →](dashboard.html)
 
-<p class="muted">Four chart types. Daily observations from 2006–2010. Built with R, Plotly and flexdashboard.</p>
+<p class="muted">The dashboard uses daily observations from 2006–2010, with plots you can hover over and zoom into.</p>
 
 </div>
 </div>

@@ -162,7 +162,7 @@ weather |>
 
 ### Average monthly precipitation
 
-```{r rainfall-bar}
+```{r precipitation-bar}
 precipitation_by_month |>
   mutate(hover = paste0(
     month, "<br>Average monthly total: ", sprintf("%.1f", mean_total),
@@ -205,11 +205,11 @@ weather |>
 
 ### Reading the charts
 
-Temperatures rise and fall through each year, and warmer nights generally accompany warmer days. The seasonal boxes show how much individual days vary within each season.
+The median daily high is `r sprintf("%.1f", median(weather$tmax[weather$season == "Summer"]))` °C in summer and `r sprintf("%.1f", median(weather$tmax[weather$season == "Winter"]))` °C in winter. The seasonal ranges still overlap. Boxes show the middle half of daily highs, with a line at the median; individual points are hidden.
 
-The precipitation bars are the **mean of five monthly totals** for each calendar month, rather than the mean daily precipitation. The wettest calendar month in this five-year window is `r as.character(precipitation_by_month$month[which.max(precipitation_by_month$mean_total)])`, averaging `r round(max(precipitation_by_month$mean_total), 1)` mm.
+Each precipitation bar averages **five monthly totals**, one from each year. The calendar month with the highest average total in this window is `r as.character(precipitation_by_month$month[which.max(precipitation_by_month$mean_total)])`, averaging `r round(max(precipitation_by_month$mean_total), 1)` mm.
 
-This is one station over five years. It describes this period in Central Park; it does not establish a long-term climate trend or represent every part of New York.
+These five years describe Central Park during this period. One station cannot represent all of New York or establish a long-term climate trend.
 
 Row {data-height=220}
 -----------------------------------------------------------------------
@@ -218,6 +218,6 @@ Row {data-height=220}
 
 Source: [`p8105.datasets::ny_noaa`](https://p8105.com/dataset_noaa.html). Station `USW00094728` is identified as **NY CITY CNTRL PARK** in [NOAA's station inventory](https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt).
 
-The documents load data directly from the course package. Temperatures are converted from tenths of a degree Celsius to °C; precipitation is converted from tenths of a millimeter to mm. Snowfall is already in mm. No random sample is used. Winter is December–February, spring March–May, summer June–August and autumn September–November; winter days are grouped by calendar season rather than complete winter-years.
+The dashboard loads data directly from the course package. Temperatures are converted from tenths of a degree Celsius to °C; precipitation is converted from tenths of a millimeter to mm. Snowfall is already in mm. No random sample is used. Winter is December–February, spring March–May, summer June–August and autumn September–November; winter days are grouped by calendar season rather than complete winter-years.
 
 [Home](index.html) · [Resume](resume.html) · [Dashboard source](https://github.com/hw3206/hw3206.github.io/blob/main/dashboard.Rmd)
