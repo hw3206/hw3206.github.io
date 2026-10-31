@@ -6,9 +6,6 @@ rmarkdown::render_site(input = "resume.Rmd", quiet = TRUE)
 # the flexdashboard format, as discussed in the course lecture.
 rmarkdown::render(
   "dashboard.Rmd",
-  output_format = flexdashboard::flex_dashboard(
-    orientation = "rows", vertical_layout = "scroll",
-    theme = "flatly", self_contained = TRUE, css = "dashboard.css"
-  ),
+  output_format = "flexdashboard::flex_dashboard",
   quiet = TRUE
 )

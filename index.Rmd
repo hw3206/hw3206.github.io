@@ -23,7 +23,7 @@ I started at Columbia in September 2026 and expect to graduate in June 2028. Thi
 
 ## Explore the weather dashboard
 
-How do temperatures and rainfall change through the year in Central Park? I built an interactive view of five years of daily NOAA records for Data Science I.
+How do temperatures and precipitation change through the year in Central Park? I built an interactive view of five years of daily NOAA records for Data Science I.
 
 [Open the dashboard →](dashboard.html)
 

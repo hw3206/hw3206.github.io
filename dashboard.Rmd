@@ -1,0 +1,223 @@
+---
+title: "Central Park weather · 2006–2010"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    theme: flatly
+    self_contained: true
+    css: dashboard.css
+    navbar:
+      - title: "Home"
+        href: index.html
+        align: right
+      - title: "Resume"
+        href: resume.html
+        align: right
+      - title: "GitHub"
+        icon: fa-github
+        href: https://github.com/hw3206
+        align: right
+      - title: "Email"
+        icon: fa-envelope
+        href: mailto:hw3206@cumc.columbia.edu
+        align: right
+
+
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+data("ny_noaa")
+
+weather = ny_noaa |>
+  filter(
+    id == "USW00094728",
+    date >= as.Date("2006-01-01"), date <= as.Date("2010-12-31")
+  ) |>
+  transmute(
+    date,
+    year = lubridate::year(date),
+    month_number = lubridate::month(date),
+    month_date = lubridate::floor_date(date, "month"),
+    month = factor(month.abb[month_number], levels = month.abb),
+    tmax = as.numeric(tmax) / 10,
+    tmin = as.numeric(tmin) / 10,
+    precipitation = prcp / 10,
+    snowfall = snow,
+    season = factor(
+      case_when(
+        month_number %in% c(12, 1, 2) ~ "Winter",
+        month_number %in% 3:5 ~ "Spring",
+        month_number %in% 6:8 ~ "Summer",
+        TRUE ~ "Autumn"
+      ),
+      levels = c("Winter", "Spring", "Summer", "Autumn")
+    )
+  ) |>
+  arrange(date)
+
+stopifnot(
+  !anyDuplicated(weather$date),
+  setequal(weather$date, seq(as.Date("2006-01-01"), as.Date("2010-12-31"), by = "day")),
+  all(complete.cases(weather)),
+  all(weather$tmax >= weather$tmin),
+  all(weather$precipitation >= 0), all(weather$snowfall >= 0)
+)
+
+monthly_weather = weather |>
+  group_by(month_date, month) |>
+  summarize(
+    mean_high = mean(tmax), mean_low = mean(tmin),
+    total_precipitation = sum(precipitation), days = n(), .groups = "drop"
+  )
+precipitation_by_month = monthly_weather |>
+  group_by(month) |>
+  summarize(
+    mean_total = mean(total_precipitation), years = n(), .groups = "drop"
+  )
+season_colors = c(
+  "Winter" = "#426987", "Spring" = "#668154",
+  "Summer" = "#b26b36", "Autumn" = "#865e7f"
+)
+```
+
+Row {data-height=150}
+-----------------------------------------------------------------------
+
+### Five years at one weather station
+
+<div class="overview-text">
+
+**Central Park, Manhattan** · January 1, 2006–December 31, 2010 · `r scales::comma(nrow(weather))` daily observations.
+
+Explore the annual temperature cycle, compare precipitation across calendar months, and inspect individual days. All selected dates have temperature, precipitation and snowfall records. Hover over a plot for exact values; use its toolbar to zoom or reset.
+
+</div>
+
+Row {data-height=440}
+-----------------------------------------------------------------------
+
+### Monthly mean high and low temperatures
+
+```{r monthly-line}
+monthly_temperature = monthly_weather |>
+  select(month_date, mean_high, mean_low, days) |>
+  pivot_longer(c(mean_high, mean_low), names_to = "measure", values_to = "temperature") |>
+  mutate(
+    measure = factor(measure, c("mean_high", "mean_low"), c("Daily high", "Daily low")),
+    hover = paste0(
+      format(month_date, "%B %Y"), "<br>", measure, ": ",
+      sprintf("%.1f", temperature), " °C<br>", days, " observed days"
+    )
+  )
+
+monthly_temperature |>
+  plot_ly(
+    x = ~month_date, y = ~temperature, color = ~measure,
+    colors = c("#b26b36", "#426987"), type = "scatter", mode = "lines",
+    text = ~hover, hoverinfo = "text", line = list(width = 2)
+  ) |>
+  layout(
+    xaxis = list(title = "Month", type = "date", tickformat = "%b<br>%Y"),
+    yaxis = list(title = "Temperature (°C)", zeroline = FALSE),
+    legend = list(orientation = "h", x = 0, y = 1.12),
+    margin = list(l = 60, r = 20, b = 58, t = 30),
+    font = list(family = "Arial", size = 12),
+    paper_bgcolor = "#ffffff", plot_bgcolor = "#ffffff"
+  ) |>
+  config(displaylogo = FALSE, responsive = TRUE)
+```
+
+Row {data-height=440}
+-----------------------------------------------------------------------
+
+### Daily minimum and maximum temperatures
+
+```{r temperature-scatter}
+weather |>
+  mutate(hover = paste0(
+    format(date, "%b %d, %Y"), "<br>Low: ", sprintf("%.1f", tmin),
+    " °C<br>High: ", sprintf("%.1f", tmax), " °C<br>Precipitation: ",
+    sprintf("%.1f", precipitation), " mm"
+  )) |>
+  plot_ly(
+    x = ~tmin, y = ~tmax, color = ~season, colors = season_colors,
+    type = "scatter", mode = "markers", text = ~hover, hoverinfo = "text",
+    marker = list(size = 6, opacity = 0.5)
+  ) |>
+  layout(
+    xaxis = list(title = "Daily minimum (°C)", zeroline = FALSE),
+    yaxis = list(title = "Daily maximum (°C)", zeroline = FALSE),
+    legend = list(orientation = "h", x = 0, y = 1.12),
+    margin = list(l = 60, r = 20, b = 58, t = 30),
+    font = list(family = "Arial", size = 12)
+  ) |>
+  config(displaylogo = FALSE, responsive = TRUE)
+```
+
+### Average monthly precipitation
+
+```{r rainfall-bar}
+precipitation_by_month |>
+  mutate(hover = paste0(
+    month, "<br>Average monthly total: ", sprintf("%.1f", mean_total),
+    " mm<br>", years, " monthly totals (2006–2010)"
+  )) |>
+  plot_ly(
+    x = ~month, y = ~mean_total, type = "bar",
+    marker = list(color = "#126b77"), text = ~hover,
+    textposition = "none", hoverinfo = "text"
+  ) |>
+  layout(
+    xaxis = list(title = "Calendar month", categoryorder = "array", categoryarray = month.abb),
+    yaxis = list(title = "Precipitation (mm)", rangemode = "tozero"),
+    showlegend = FALSE,
+    margin = list(l = 60, r = 20, b = 58, t = 20),
+    font = list(family = "Arial", size = 12)
+  ) |>
+  config(displaylogo = FALSE, responsive = TRUE)
+```
+
+Row {data-height=420}
+-----------------------------------------------------------------------
+
+### Daily high temperatures by season
+
+```{r season-box}
+weather |>
+  plot_ly(
+    x = ~season, y = ~tmax, color = ~season, colors = season_colors,
+    type = "box", boxpoints = FALSE, showlegend = FALSE
+  ) |>
+  layout(
+    xaxis = list(title = "Season", categoryorder = "array", categoryarray = levels(weather$season)),
+    yaxis = list(title = "Daily maximum (°C)", zeroline = FALSE),
+    margin = list(l = 60, r = 20, b = 58, t = 20),
+    font = list(family = "Arial", size = 12)
+  ) |>
+  config(displaylogo = FALSE, responsive = TRUE)
+```
+
+### Reading the charts
+
+Temperatures rise and fall through each year, and warmer nights generally accompany warmer days. The seasonal boxes show how much individual days vary within each season.
+
+The precipitation bars are the **mean of five monthly totals** for each calendar month, rather than the mean daily precipitation. The wettest calendar month in this five-year window is `r as.character(precipitation_by_month$month[which.max(precipitation_by_month$mean_total)])`, averaging `r round(max(precipitation_by_month$mean_total), 1)` mm.
+
+This is one station over five years. It describes this period in Central Park; it does not establish a long-term climate trend or represent every part of New York.
+
+Row {data-height=220}
+-----------------------------------------------------------------------
+
+### Data and methods
+
+Source: [`p8105.datasets::ny_noaa`](https://p8105.com/dataset_noaa.html). Station `USW00094728` is identified as **NY CITY CNTRL PARK** in [NOAA's station inventory](https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt).
+
+The documents load data directly from the course package. Temperatures are converted from tenths of a degree Celsius to °C; precipitation is converted from tenths of a millimeter to mm. Snowfall is already in mm. No random sample is used. Winter is December–February, spring March–May, summer June–August and autumn September–November; winter days are grouped by calendar season rather than complete winter-years.
+
+[Home](index.html) · [Resume](resume.html) · [Dashboard source](https://github.com/hw3206/hw3206.github.io/blob/main/dashboard.Rmd)
